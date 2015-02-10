@@ -1,6 +1,7 @@
 package DDG::Goodie::GoodieTemplateCustom;
-# ABSTRACT: Test customtemplates with Goodies 
+# ABSTRACT: Test custom templates with Goodies 
 
+use Lingua::EN::Numbers::Ordinate;
 use DDG::Goodie;
 
 primary_example_queries 'gtc something';
@@ -15,35 +16,36 @@ attribution github => ['https://github.com/zachthompson', 'Zach Thompson'];
 triggers startend => 'gtc';
 
 zci answer_type => 'gtc';
-zci is_cached   => 1;
+zci is_cached   => 0;
 
 handle remainder => sub {
   my $in = shift;
 
   return unless $in;
 
-  my ($tmpl, @in) = split /\s+/, $in;
-  my $input = "@in";
-  my @tiled_input = map {split '', $_} @in;
+  my @numeric_values = map{{char => $_, val => ord}} (split '', $in);
 
   my %answers = (
 	text =>	{
     	data => {
-    		title => html_enc(join('|', split('', $in))),
-    		subtitle => $in, 
-    	 	description => 'We split and rejoined with pipes!'
+    		title => html_enc(join('_', split('', $in))),
+    		subtitle => html_enc($in), 
+    	 	description => 'We split and rejoined with underscores!',
+			numeric_values => \@numeric_values,,
+			image => 'https://duck.co/ddgc_static/img/logo_ddg_duckduckhack.png'
     	},
     	templates => {
-			group => 'base',
+			group => 'info',
            	options => {
 		    	content => 'DDH.goodie_template_custom.content',
-			    moreAt => true
+			    aux => 'DDH.goodie_template_custom.aux',
+			    moreAt => 1 
 		    }
     	}
     }
   );
 
-  my $answer = exists $answers{$tmpl} ? $answers{$tmpl} : $answers{text};
+  my $answer = $answers{text};
 
   return "You gave goodie_template_custom $in and like HTML!", 
       structured_answer => {
