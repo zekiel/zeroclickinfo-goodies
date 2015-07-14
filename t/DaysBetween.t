@@ -131,9 +131,9 @@ set_fixed_time('2015-07-14T22:36:00');
 ddg_goodie_test(
     [qw( DDG::Goodie::DaysBetween)],
     'days between 22nd may and today' => test_zci(
-        'There are 53 days between 22 May 2015 and 14 July 2015',
+        'There are 53 days between 22 May 2015 and 14 Jul 2015.',
         structured_answer => {
-            input     => ['22 May 2015', '14 July 2015'],
+            input     => ['22 May 2015', '14 Jul 2015'],
             operation => 'Days between',
             result    => 53
         },
