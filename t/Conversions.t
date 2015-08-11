@@ -850,6 +850,22 @@ ddg_goodie_test(
             result    => '10,000 centimeters'
         }
     ),
+    'BTU to KwH' => test_zci(
+        '1 british thermal unit = 0.000293 kilowatt-hours',
+        structured_answer =>{
+            input => ['1 british thermal unit'],
+            operation => 'Convert',
+            result => '0.000293 kilowatt-hours'
+        }
+    ),
+    'Convert BTU to KwH' => test_zci(
+        '1 british thermal unit = 0.000293 kilowatt-hours',
+        structured_answer =>{
+            input => ['1 british thermal unit'],
+            operation => 'Convert',
+            result => '0.000293 kilowatt-hours'
+        }
+    ),
     # Intentionally untriggered
     '5 inches in 5 meters'            => undef,
     'convert 1 cm to 2 mm'            => undef,
